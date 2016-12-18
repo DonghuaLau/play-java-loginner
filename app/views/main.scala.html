@@ -1,0 +1,10 @@
+@import services.SiteInfo
+@(site_info: SiteInfo, user: User)(content: Html)
+
+@header(site_info = site_info)
+
+@menu(site_info = site_info, user = user)
+
+@content
+
+@footer(site_info = site_info)
