@@ -14,8 +14,8 @@ public class SiteInfo{
 	public String _lang;
 	public int _menu;
 	public int _sub_menu;
-	public Vector<String> _js_files = new Vector();
-	public Vector<String> _css_files = new Vector();
+	public Vector<String> _js_files = new Vector<String>();
+	public Vector<String> _css_files = new Vector<String>();
  
  	// use controllers.routes.? is better
 	//private String _public_url_prefix_path = controllers.routes.HomeController.index();

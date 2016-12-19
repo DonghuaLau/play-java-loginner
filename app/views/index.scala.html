@@ -5,6 +5,12 @@
 
 <h1 class="ui center aligned header">@site_info._title</h1>
 <h2 class="ui center aligned header">@site_info._sub_title</h2>
-<h3 class="ui center aligned header">Current user: @user.getEmail()</h3>
+<h3 class="ui center aligned header">
+@if(user != null){
+	Current user: @user.getEmail()
+}else{
+	No login	
+}
+</h3>
 
 }

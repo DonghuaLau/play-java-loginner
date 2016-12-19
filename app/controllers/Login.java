@@ -29,8 +29,15 @@ public class Login extends Controller {
         return ok(login.render(this._site_info, user, loginForm));
     }
 
+	public Result logout() {
+	    User.logout();
+	    session().clear();
+	    //flash("success", "You've been logged out");
+	    return redirect("/");
+	}
+
+
     public Result authenticate() {
-		//loginForm = formFactory.form(User.class).bindFromRequest().get();
 		User user = loginForm.bindFromRequest().get();
         String loginError = authenticate(user);
         if(loginError != null) {

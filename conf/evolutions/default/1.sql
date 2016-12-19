@@ -4,9 +4,12 @@
 # --- !Ups
 
 create table user (
-  email                     varchar(255) not null,
+  uid                       bigint auto_increment not null,
+  email                     varchar(255),
   password                  varchar(255),
-  constraint pk_user primary key (email))
+  create_time               datetime,
+  constraint uq_user_email unique (email),
+  constraint pk_user primary key (uid))
 ;
 
 

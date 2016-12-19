@@ -27,8 +27,12 @@
 	    <i class="large sidebar icon"></i>
 	  </a>
 	  <div class="right menu" id="login-menu">
+		@if(user == null){
 		<a href="@routes.Login.index"><button class="ui teal basic button">Login</button></a>
 		<a href="@routes.Register.index"><button class="ui blue basic button">Register</button></a>
+		}else{
+		<a href="@routes.Login.logout"><button class="ui teal basic button">Logout</button></a>
+		}
 	  </div>
 	</div>
 

@@ -3,10 +3,13 @@ package controllers;
 import models.User;
 import services.*;
 import play.data.Form;
+import play.data.DynamicForm;
 import play.mvc.*;
 import views.html.*;
 import play.data.FormFactory;
 import javax.inject.Inject;
+
+import play.Logger;
 
 import javax.persistence.PersistenceException;
 
@@ -30,7 +33,6 @@ public class Register extends Controller {
     }
 
     public Result register() {
-		//loginForm = formFactory.form(User.class).bindFromRequest().get();
         User user = loginForm.bindFromRequest().get();
         try {
             if (!user.register()) {

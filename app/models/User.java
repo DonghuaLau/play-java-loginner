@@ -1,6 +1,8 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Model;
+import com.avaje.ebean.ExpressionList;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -10,24 +12,58 @@ import security.Password;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import play.Logger;
 
 @Entity(name = "user")
-public class User {
-    @Id
-    String email;
-    String password;
+public class User extends Model{
 
-    public User(String username, String password) {
-        this.email = username;
+    @Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uid;
+
+	@Column(unique=true)
+    private String email;
+
+    private String password;
+
+	@Column(columnDefinition = "datetime")
+	private Timestamp create_time;
+
+	//public static Finder<String, User> find_by_email = new Finder<String, User>(User.class);
+
+    public User(String email, String password) {
+        //this.uid = new Long(0);
+        this.email = email;
         this.password = password;
+		this.create_time = new Timestamp(System.currentTimeMillis());
     }
 
     public static User getUserByEmail(String email) {
         if(email == null) {
             return null;
         }
-        return Ebean.find(User.class, email);
+        //List<User> users = Ebean.find(User.class).where().eq("email", email).findList();
+		//if(users.size() == 0){
+		//	return null;
+		//}else{
+		//	return users.get(0);
+		//}	
+        User usr = Ebean.find(User.class).where().eq("email", email).findUnique();
+		return usr;
+    }
+
+    public static User getUserByUid(Long uid) {
+        if(uid == null) {
+            return null;
+        }
+        return Ebean.find(User.class, uid);
     }
 
     public static List<User> getAllUsers() {
@@ -61,8 +97,8 @@ public class User {
     }
 
     private User create() {
-
         password = Password.encryptPassword(password);
+		create_time = new Timestamp(System.currentTimeMillis());
         Ebean.save(this);
         return this;
     }
@@ -70,6 +106,16 @@ public class User {
     @Column(name = "email")
     public String getEmail() {
         return email;
+    }
+
+    @Column(name = "uid")
+    public Long getUid() {
+        return uid;
+    }
+
+    @Column(name = "uid")
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public void setEmail(String email) {
