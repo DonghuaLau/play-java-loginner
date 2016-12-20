@@ -14,6 +14,7 @@ public class HomeController extends Controller {
     @Inject
 	public HomeController() {
 		this._site_info = new SiteInfo();
+		this._site_info._sub_title = "Home";
 	}
 
     public Result index() {

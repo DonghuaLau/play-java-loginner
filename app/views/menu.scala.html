@@ -11,22 +11,30 @@
       <i class="block layout icon"></i>
       Topics
     </a>
-    <a class="item">
-      <i class="smile icon"></i>
-      Friends
+	@if(user == null){
+    <a class="item" href="@routes.Login.index">
+      <i class="user icon"></i>
+      Login
     </a>
-    <a class="item">
-      <i class="calendar icon"></i>
-      History
+    <a class="item" href="@routes.Register.index">
+      <i class="add user icon"></i>
+      Register
     </a>
+	}else{
+    <a class="item" href="@routes.Login.logout">
+      <i class="sign out icon"></i>
+      Logout 
+    </a>
+	}
   </div>
+
   <div class="pusher">
 
 	<div class="ui top attached demo menu">
 	  <a class="item" id="menu-open">
 	    <i class="large sidebar icon"></i>
 	  </a>
-	  <div class="right menu" id="login-menu">
+	  <div class="right menu hidden-xs" id="login-menu">
 		@if(user == null){
 		<a href="@routes.Login.index"><button class="ui teal basic button">Login</button></a>
 		<a href="@routes.Register.index"><button class="ui blue basic button">Register</button></a>

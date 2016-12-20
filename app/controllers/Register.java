@@ -25,6 +25,7 @@ public class Register extends Controller {
         this.formFactory = formFactory;
 		loginForm = formFactory.form(User.class);
 		this._site_info = new SiteInfo();
+		this._site_info._sub_title = "Register";
     }
 
     public Result index() {
