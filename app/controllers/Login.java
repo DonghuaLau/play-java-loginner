@@ -5,6 +5,8 @@ import services.*;
 import play.data.Form;
 import play.data.FormFactory;
 import javax.inject.Inject;
+import play.i18n.Messages;
+import play.i18n.MessagesApi;
 
 import play.mvc.*;
 import views.html.*;
@@ -16,16 +18,24 @@ public class Login extends Controller {
     private final FormFactory formFactory;
 
 	private SiteInfo _site_info;
+	private final MessagesApi messagesApi;
 
     @Inject
-    public Login (FormFactory formFactory) {
+    public Login (MessagesApi messagesApi, FormFactory formFactory) {
+
+		this.messagesApi = messagesApi;
+
         this.formFactory = formFactory;
 		loginForm = formFactory.form(User.class);
 		this._site_info = new SiteInfo();
-		this._site_info._sub_title = "Login";
     }
 
     public Result index() {
+		Messages messages = messagesApi.preferred(request());
+		this._site_info._messages = messages;
+		this._site_info.changeContext();
+		this._site_info._title = this._site_info._messages.at("pages.title");
+		this._site_info._sub_title = this._site_info._messages.at("pages.login.title");
 		User user = _site_info.getCurrentUser(session());
         return ok(login.render(this._site_info, user, loginForm));
     }

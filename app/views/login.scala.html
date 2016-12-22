@@ -1,30 +1,17 @@
 @import services.SiteInfo
+@import play.i18n._
 @(site_info: SiteInfo, user: User, form: Form[User])
 @main(site_info = site_info, user = user) {
 
 @helper.form(routes.Login.authenticate) {
 
-    @form.globalErrors.map { error =>
-        <p class="error">
-            @error.toString
-        </p>
-    }
-    @form.discardErrors
-
-    @if(flash.get("success")){
-        @flash.get("success").map { message =>
-            <p class="success">
-                @message
-            </p>
-        }
-    }
 
 <div class="ui middle aligned center aligned grid">
   <div class="column" id="login-block">
     <h2 class="ui teal image header">
       <img src="@site_info._logo_img" class="image">
       <div class="content">
-        Log-in to your account
+       @site_info._messages.at("pages.login.form.title")
       </div>
     </h2>
     <form class="ui large form" action="@routes.Login.authenticate" target="_self" method="POST">
@@ -32,24 +19,39 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="email" placeholder="E-mail address" value="@form("email").value">
+            <input type="text" name="email" placeholder="@site_info._messages.at("pages.login.form.email")" value="@form("email").value">
           </div>
         </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="@site_info._messages.at("pages.login.form.password")">
           </div>
         </div>
-        <button type="submit" class="ui fluid large teal submit button">Login</button>
+        <button type="submit" class="ui fluid large teal submit button">@site_info._messages.at("pages.login.form.submit")</button>
       </div>
 
-      <div class="ui error message"></div>
+      <div class="ui error message">
+    	@form.globalErrors.map { error =>
+    	    <p class="error">
+    	        @error.toString
+    	    </p>
+    	}
+    	@form.discardErrors
+
+    	@if(flash.get("success")){
+    	    @flash.get("success").map { message =>
+    	        <p class="success">
+    	            @message
+    	        </p>
+    	    }
+    	}
+	  </div>
 
     </form>
 
     <div class="ui message">
-      New to us? <a href="@routes.Register.index">Sign Up</a>
+      @site_info._messages.at("pages.register.not")? <a href="@routes.Register.index">@site_info._messages.at("pages.register.form.submit")</a>
     </div>
   </div>
 </div>

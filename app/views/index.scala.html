@@ -1,4 +1,5 @@
 @import services.SiteInfo
+@import play.i18n._
 @(site_info: SiteInfo, user: User)
 @main(site_info = site_info, user = user) {
 	@* user email: @site_info._sub_title *@
@@ -9,7 +10,7 @@
 @if(user != null){
 	Current user: @user.getEmail()
 }else{
-	No login	
+	@site_info._messages.at("pages.login.not")
 }
 </h3>
 <div class="ui container">

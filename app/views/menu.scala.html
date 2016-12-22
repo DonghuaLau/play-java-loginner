@@ -1,11 +1,12 @@
 @import services.SiteInfo
+@import play.i18n._
 @(site_info: SiteInfo, user: User)
 
 <div class="ui bottom attached segment pushable" style="border:0px;">
   <div class="ui inverted left vertical sidebar menu">
     <a class="item" href="@routes.HomeController.index">
       <i class="home icon"></i>
-      Home
+ 		@site_info._messages.at("pages.index.title")
     </a>
     <a class="item">
       <i class="block layout icon"></i>
@@ -14,16 +15,16 @@
 	@if(user == null){
     <a class="item" href="@routes.Login.index">
       <i class="user icon"></i>
-      Login
+ 	  @site_info._messages.at("pages.login.title")
     </a>
     <a class="item" href="@routes.Register.index">
       <i class="add user icon"></i>
-      Register
+      @site_info._messages.at("pages.register.title")
     </a>
 	}else{
     <a class="item" href="@routes.Login.logout">
       <i class="sign out icon"></i>
-      Logout 
+      @site_info._messages.at("pages.logout.title")
     </a>
 	}
   </div>
@@ -36,10 +37,10 @@
 	  </a>
 	  <div class="right menu hidden-xs" id="login-menu">
 		@if(user == null){
-		<a href="@routes.Login.index"><button class="ui teal basic button">Login</button></a>
-		<a href="@routes.Register.index"><button class="ui blue basic button">Register</button></a>
+		<a href="@routes.Login.index"><button class="ui teal basic button">@site_info._messages.at("pages.login.title")</button></a>
+		<a href="@routes.Register.index"><button class="ui blue basic button">@site_info._messages.at("pages.register.title")</button></a>
 		}else{
-		<a href="@routes.Login.logout"><button class="ui teal basic button">Logout</button></a>
+		<a href="@routes.Login.logout"><button class="ui teal basic button">@site_info._messages.at("pages.logout.title")</button></a>
 		}
 	  </div>
 	</div>

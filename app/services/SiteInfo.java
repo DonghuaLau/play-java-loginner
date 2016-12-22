@@ -4,6 +4,9 @@ import java.util.Vector;
 import models.User;
 import play.mvc.Http;
 import play.api.mvc.Call;
+import play.i18n.Messages;
+//import play.i18n.MessagesApi;
+import play.i18n.Lang;
 
 public class SiteInfo{
 
@@ -16,6 +19,9 @@ public class SiteInfo{
 	public int _sub_menu;
 	public Vector<String> _js_files = new Vector<String>();
 	public Vector<String> _css_files = new Vector<String>();
+	public Messages _messages;
+	//public MessagesApi _messagesApi;
+	public Lang _messages_lang;
  
  	// use controllers.routes.? is better
 	//private String _public_url_prefix_path = controllers.routes.HomeController.index();
@@ -39,14 +45,26 @@ public class SiteInfo{
 		//str = controllers.routes.Assets.versioned("semantic-ui/semantic.min.css").url;
 		str = "/assets/semantic-ui/semantic.min.css";
 		this._css_files.add(str);
-    }
 
-	private String authToken(Http.Session session) {
-	    return session.get("email");
 	}
+
+	public void changeContext(){
+
+		Http.Context.current().changeLang("zh-CN");
+    }
 	
 	public User getCurrentUser(Http.Session session) {
 	    return User.getUserByEmail(authToken(session));
 	
+	}
+
+	/*
+	public void setMessages(Messages messages){
+		this._messages = messages;
+	}
+	*/
+
+	private String authToken(Http.Session session) {
+	    return session.get("email");
 	}
 }

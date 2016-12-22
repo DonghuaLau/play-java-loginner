@@ -88,6 +88,13 @@ public class User extends Model{
         }
     }
 
+    public boolean isEmpty() {
+		if(email.isEmpty() || password.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+
     public boolean register() {
         if (getUserByEmail(email) == null) {
             create();

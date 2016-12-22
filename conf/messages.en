@@ -1,0 +1,17 @@
+pages.title=Play Loginner
+pages.index.title=Home
+pages.login.title=Login
+pages.login.form.title=Login in your account
+pages.login.form.name=Type your name
+pages.login.form.email=Type your email
+pages.login.form.password=Type your password
+pages.login.form.submit=Signin now
+pages.login.not=Not Login
+pages.logout.title=Logout
+pages.register.title=Register
+pages.register.form.title=Register in your account
+pages.register.form.name=Type your name
+pages.register.form.email=Type your email
+pages.register.form.password=Type your password
+pages.register.form.submit=Signup now
+pages.register.not=New to us
